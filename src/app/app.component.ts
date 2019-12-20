@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+
+export interface Post {
+  title: string
+  text: string
+  id?: number
+}
 
 @Component({
   selector: 'app-root',
@@ -6,5 +12,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-basics';
+  posts: Post[] = [
+    {title: 'Обучение Angular', text: 'Хочу выучить Angular', id: 1},
+    {title: 'Обучение Vue', text: 'Продолжаю учить Vue', id: 2}
+  ];
+
+  updatePosts(post: Post) {
+    this.posts.unshift(post);
+  }
 }
