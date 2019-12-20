@@ -7,26 +7,28 @@ import {Post} from '../app.component';
   styleUrls: ['./post-form.component.scss']
 })
 export class PostFormComponent implements OnInit {
+  title: '';
+  text: '';
+
   @Output() onAdd: EventEmitter<Post> = new EventEmitter<Post>();
 
-  title = '';
-  text = '';
-
   constructor() {
+
   }
 
   ngOnInit() {
   }
 
+
   addPost() {
-    if (this.text.trim() && this.title.trim()) {
+    if (this.title.trim() && this.text.trim()) {
       const post: Post = {
         title: this.title,
         text: this.text
       };
       this.onAdd.emit(post);
       this.title = this.text = '';
+
     }
   }
-
 }

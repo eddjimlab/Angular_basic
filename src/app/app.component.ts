@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 
 export interface Post {
-  title: string
-  text: string
-  id?: number
+  title: string;
+  text: string;
+  id?: number;
 }
 
 @Component({
@@ -12,12 +12,12 @@ export interface Post {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  posts: Post[] = [
-    {title: 'Обучение Angular', text: 'Хочу выучить Angular', id: 1},
-    {title: 'Обучение Vue', text: 'Продолжаю учить Vue', id: 2}
+  post: Post[] = [
+    {title: 'Angular', text: 'I must learn this topic', id: 1},
+    {title: 'Vue', text: 'I dont`t have to forget Vue', id: 2},
   ];
 
-  updatePosts(post: Post) {
-    this.posts.unshift(post);
+  updatePost(newPost: Post) {
+    this.post.unshift(newPost);
   }
 }
