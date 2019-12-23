@@ -1,22 +1,20 @@
 <div class="container">
-  <h1>Angular component</h1>
-  <h2>I an h2 tag too</h2>
-  <app-post-form
-    (onAdd)="updatePost($event)"
-  ></app-post-form>
-  <hr>
-  <app-post
-    *ngFor="let p of post"
-    [myPost]="p"
-  >
-    <div #info>
-      <small *ngIf="p.text.length > 10; else tagSmall">
-        Long Post
-      </small>
-      <ng-template #tagSmall>
-        <small>Short Post</small>
-      </ng-template>
-    </div>
-  </app-post>
+  <h1 appHeader>Angular Directives</h1>
+  <p appStyle="red" [dStyles]="{border: '1px dashed green', borderRadius: '5px', fontWeight: 'bold'}">Lorem ipsum dolor
+    sit amet, consectetur adipisicing elit. Harum, repudiandae!</p>
+  <p appStyle="blue" [dStyles]="{border: '2px dashed red', borderRadius: '15px', fontWeight: 'bold'}">Lorem ipsum dolor
+    sit amet, consectetur adipisicing elit. Harum, repudiandae!</p>
 
+  <button class="btn" (click)="isVisible = !isVisible">Toggle</button>
+<!--  <div *ngIf="isVisible" class="wrap">-->
+<!--    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>-->
+<!--  </div>-->
+<!--  <ng-template [ngIf]="isVisible">-->
+<!--    <div  class="wrap">-->
+<!--      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>-->
+<!--    </div>-->
+<!--  </ng-template>-->
+  <div  class="wrap" *appIfnot="!isVisible">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+  </div>
 </div>
