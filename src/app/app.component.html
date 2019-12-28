@@ -1,17 +1,75 @@
 <div class="container">
-  <h1 appHeader>Angular Services</h1>
+  <form class="card" [formGroup]="form" (ngSubmit)="submit()">
+    <h1>Angular Forms</h1>
 
-  <div class="card">
-    <h2>App Counter: {{appCounterService.counter}}</h2>
-    <button class="btn" (click)="appCounterService.increase()">+</button>
-    <button class="btn" (click)="appCounterService.decrease()">-</button>
-  </div>
-  <div class="card">
-    <h2>Local Counter: {{localCounterService.counter}}</h2>
-    <button class="btn" (click)="localCounterService.increase()">+</button>
-    <button class="btn" (click)="localCounterService.decrease()">-</button>
-  </div>
-  <hr>
-  <app-counter></app-counter>
+    <div class="form-control">
+      <label>Email</label>
+      <input type="text" placeholder="Email" formControlName="email">
+      <div class="validation" *ngIf="form.get('email').invalid && form.get('email').touched">
+        <small *ngIf="form.get('email').errors.required">
+          Email field is empty !
+        </small>
+        <small *ngIf="form.get('email').errors.email">
+          Valid Email required !
+        </small>
+        <small *ngIf="form.get('email').errors.restrictedEmail">
+          Email {{form.get('email').value}} is prohibited
+        </small>
+        <small *ngIf="form.get('email').errors.uniqEmail">
+          This email {{form.get('email').value}} is occupied
+        </small>
+      </div>
+    </div>
 
+    <div class="form-control">
+      <label>Пароль</label>
+      <input type="password" placeholder="Пароль" formControlName="password">
+      <div class="validation" *ngIf="form.get('password').invalid && form.get('password').touched">
+        <small *ngIf="form.get('password').errors.required">
+          Empty password field
+        </small>
+        <small *ngIf="form.get('password').errors.minlength">
+          Required pass length: {{form.get('password').errors.minlength.requiredLength}},
+          Actual pass length: {{form.get('password').errors.minlength.actualLength}}
+        </small>
+      </div>
+    </div>
+
+    <div class="card" formGroupName="address">
+      <h2>Адрес</h2>
+
+      <div class="form-control">
+        <label>Страна</label>
+
+        <select formControlName="country" (change)="setCapital()">
+          <option value="ru">Россия</option>
+          <option value="ua">Украина</option>
+          <option value="by">Беларусь</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <input type="text" formControlName="city" placeholder="city">
+      </div>
+
+      <button class="btn" type="button" (click)="setCapital()">Выбрать столицу</button>
+    </div>
+
+    <div class="card" formGroupName="skills">
+      <h2>Ваши навыки</h2>
+      <button class="btn" type="button" (click)="addSkills()">Добавить умение</button>
+      <div
+        *ngFor="let control of form.get('skills').controls; let idx = index"
+        class="form-control">
+        <label>Умения: {{idx + 1}}</label>
+        <input type="text" [formControlName]="idx">
+      </div>
+    </div>
+
+    <button class="btn" type="submit" [disabled]="form.invalid || form.pending">Отправить</button>
+
+  </form>
 </div>
+
+
+
