@@ -1,22 +1,23 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {AppComponent} from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { AnimateComponent } from './animate/animate.component';
-import { SampleAnimationComponent } from './sample-animation/sample-animation.component';
+import {BrowserModule} from '@angular/platform-browser'
+import {NgModule} from '@angular/core'
 
+import {AppComponent} from './app.component'
+import {FormsModule} from '@angular/forms'
+import {ModalComponent} from './modal/modal.component'
+import {RefDirective} from './ref.directive'
 
 @NgModule({
   declarations: [
     AppComponent,
-    AnimateComponent,
-    SampleAnimationComponent,
+    ModalComponent,
+    RefDirective
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    FormsModule,
   ],
   providers: [],
+  entryComponents: [ModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

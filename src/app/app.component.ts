@@ -1,26 +1,28 @@
-import {Component} from '@angular/core';
-import {animate, group, keyframes, query, state, style, transition, trigger} from '@angular/animations';
-import {boxAnimation} from './animation';
+import {Component, ComponentFactoryResolver, ViewChild} from '@angular/core'
+import {ModalComponent} from './modal/modal.component'
+import {RefDirective} from './ref.directive'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  animations: [boxAnimation]
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  boxState = 'start';
-  visible = true;
 
-  animate() {
-    this.boxState = this.boxState === 'end' ? 'start' : 'end';
-  }
+  @ViewChild(RefDirective, {static: false}) refDir: RefDirective
 
-  animationStart(event: AnimationEvent) {
-    console.log('Animation start', event);
-  }
+  constructor(private resolver: ComponentFactoryResolver) {}
 
-  animationDone(event: AnimationEvent) {
-    console.log('Animation done', event);
+  showModal() {
+    const modalFactory = this.resolver.resolveComponentFactory(ModalComponent)
+    this.refDir.containerRef.clear()
+
+    const component = this.refDir.containerRef.createComponent(modalFactory)
+
+    component.instance.title = 'Dynamic title'
+    component.instance.close.subscribe(() => {
+      this.refDir.containerRef.clear()
+    })
   }
 }
+
